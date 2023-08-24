@@ -1,0 +1,5 @@
+Punto 1.1
+awk -F "," 'NR>1 {print $3}' indices_refraccion.csv  > materiales.txt
+
+Punto 1.2
+
