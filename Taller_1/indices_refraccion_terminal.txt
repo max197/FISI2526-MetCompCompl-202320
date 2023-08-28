@@ -2,4 +2,4 @@ Punto 1.1
 awk -F "," 'NR>1 {print $3}' indices_refraccion.csv  > materiales.txt
 
 Punto 1.2
-
+ awk -F "," 'NR>1{ system("mkdir -p \"" $1 "\" && wget \"" $4 "\" -P \"" $1 "\"") }' indices_refraccion.csv
