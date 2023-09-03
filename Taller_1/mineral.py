@@ -21,7 +21,7 @@ class Mineral:
         return False
     
     def calcular_densidad(self):
-        return str(self.specific_gravity*997)+"kg/m^3"
+        return float(self.specific_gravity)*997
    
     def visualizar_material(self):
         # Create a figure and axis

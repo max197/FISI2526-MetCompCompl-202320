@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from mineral import Mineral
-
+import numpy as np
 
 def crear_minerales(archivo):
     minerales = []
@@ -11,12 +11,12 @@ def crear_minerales(archivo):
         for line in lines:
           text = line.strip( ).split("\t")
           nombre = text[0]
-          dureza = text[1]
+          dureza = float(text[1])
           rompimiento = text[2]
           color = text[3]
           composicion = text[4]
           lustre = text[5]
-          gravedad = text[6]
+          gravedad = float(text[6])
           sistema = text[7]
 
           mineral = Mineral(nombre = nombre,
@@ -31,9 +31,17 @@ def crear_minerales(archivo):
 
     return minerales
 
+#Arreglo con los 17 minerales en minerales.txt
 minerales = crear_minerales("minerales.txt")
-print(len(crear_minerales("minerales.txt")))
-print(crear_minerales("minerales.txt")[-1].es_silicato())
-minerales[0].visualizar_material()
-        
+
+def cantidad_silicatos(minerales):
+  #print([mineral.es_silicato() for mineral in minerales])
+  return sum([mineral.es_silicato() for mineral in minerales])
+
+def densidad_promedio(minerales):
+  densidades= [mineral.calcular_densidad() for mineral in minerales]
+  return round(sum(densidades)/len(densidades),3)
+
+
+  
         

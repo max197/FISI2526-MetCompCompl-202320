@@ -2,7 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-#PUNTO 1.3
+################
+#  PUNTO 1.3   #
+################
+
 def get_longitud_refraccion(archivo):
      with open(archivo,"r") as file:
           result = file.read()
@@ -19,8 +22,9 @@ def get_longitud_refraccion(archivo):
           lista = [tuple(float(item) for item in i) for i in lista]
           return lista
     
-#PUNTO 1.4
-
+################
+#  PUNTO 1.4   #
+################
 fig, axs = plt.subplots(nrows=1,ncols=2,figsize=(18,4.5))
 
 file_name = "Kapton"
@@ -46,7 +50,9 @@ axs[1].set_xlabel('Longitud Onda (lambda) ')
 axs[1].set_title(f'{file_name} \n mean = {mu2}\n std = {std2}')
 plt.show()
 
-#1.5
+################
+#  PUNTO 1.5   #
+################
 def graficar(path):
      fig, axs = plt.subplots(nrows=1,ncols=1,figsize=(10,8))
      data = get_longitud_refraccion(path)
