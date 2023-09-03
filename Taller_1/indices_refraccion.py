@@ -5,12 +5,11 @@ import numpy as np
 def get_longitud_refraccion(archivo):
      with open(archivo,"r") as file:
           result = file.read()
-          data = result.split("data: |")[1].split("\n        ")
+          data = result.split('data: |\n')[1].split('\nSPECS')[0].split('  - type')[0].strip().split('\n        ')
           lista = []
-          for i in range(len(data)):
+          for i in range(0,len(data)):
                tupla = tuple(data[i].split(" "))
                lista.append(tupla)
-          lista.pop(0)
           ultimo = (lista[-1][0],lista[-1][1].replace("\n",""))
           lista.pop()
           lista.append(ultimo)
@@ -18,8 +17,6 @@ def get_longitud_refraccion(archivo):
           #Castear los strings de la tupla a floats
           lista = [tuple(float(item) for item in i) for i in lista]
           return lista
-        
-#print(get_longitud_refraccion("Taller_1\Vidrio\TK20.yml"))
 
 #PUNTO 1.4
 
@@ -70,7 +67,7 @@ def graficar(ruta):
      plt.savefig(save_to)
 
 #TODO: ITERAR PARA CADA UNA DE LAS CARPETAS
-graficar("Taller_1\Vidrio\BF8.yml")
+#graficar("Taller_1\Vidrio\BF8.yml")
 
      
 
