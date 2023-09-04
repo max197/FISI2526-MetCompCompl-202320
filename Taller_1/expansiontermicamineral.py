@@ -13,13 +13,18 @@ class ExpansionTermicaMineral(Mineral):
         '''Calcula la expansion termica'''
         V = self.volumen.copy()
         T = self.temperatura.copy()
+
         derivada= []
+        #Calcular derivada central
         for i in range(1,len(V)-1):
           derivada.append((V[i+1]-V[i-1])/(T[i+1]-T[i-1]))
+
+        #TODO: ERROR GLOBAL
         
+        #TODO: Rectificar si asi es el calculo de la derivada
         alfa = (1/V[1:-1])*derivada
         
-        fig, axs = plt.subplots(1,2,figsize =(15,10))
+        fig, axs = plt.subplots(1,2,figsize =(20,8))
 
         axs[0].scatter(T,V)
         axs[0].set_ylabel(r'Volume ($m^3$)')
@@ -35,6 +40,8 @@ class ExpansionTermicaMineral(Mineral):
 
         plt.savefig(f"{self.nombre}_exptermica_volume.jpg")
         
+        #TODO Rectificar el return
+
         return alfa,fig
         
 

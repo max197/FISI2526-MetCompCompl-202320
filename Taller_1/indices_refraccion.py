@@ -7,13 +7,21 @@ import os
 ################
 
 def get_longitud_refraccion(archivo):
+     
      with open(archivo,"r") as file:
+          
           result = file.read()
+
+          if result == "":
+               return ""
+          
           data = result.split('data: |\n')[1].split('\nSPECS')[0].split('  - type')[0].strip().split('\n        ')
           lista = []
+
           for i in range(0,len(data)):
                tupla = tuple(data[i].split(" "))
                lista.append(tupla)
+               
           ultimo = (lista[-1][0],lista[-1][1].replace("\n",""))
           lista.pop()
           lista.append(ultimo)
@@ -28,7 +36,7 @@ def get_longitud_refraccion(archivo):
 fig, axs = plt.subplots(nrows=1,ncols=2,figsize=(18,4.5))
 
 file_name = "Kapton"
-kapton = get_longitud_refraccion(f"Taller_1\Plásticos Comerciales\{file_name}.yml")
+kapton = get_longitud_refraccion(f"Plásticos Comerciales\{file_name}.yml")
 x1 = np.array([e[0] for e in kapton ])
 y1 = np.array([e[1] for e in kapton ])
 mu1 = round(np.mean(y1),3)
@@ -39,7 +47,7 @@ axs[0].set_xlabel('Longitud onda (lambda)')
 axs[0].set_title(f'{file_name} \n mean = {mu1}\n std = {std1}')
 
 file_name = "NOA1348"
-NOA1348 = get_longitud_refraccion(f"Taller_1\Adhesivos Ópticos\{file_name}.yml")
+NOA1348 = get_longitud_refraccion(f"Adhesivos Ópticos\{file_name}.yml")
 x2 = np.array([e[0] for e in NOA1348 ])
 y2 = np.array([e[1] for e in NOA1348 ])
 mu2 = round(np.mean(y2),3)
@@ -56,6 +64,10 @@ plt.show()
 def graficar(path):
      fig, axs = plt.subplots(nrows=1,ncols=1,figsize=(10,8))
      data = get_longitud_refraccion(path)
+
+     if data =="":
+          return None
+     
      x = np.array([e[0] for e in data ])
      y = np.array([e[1] for e in data ])
      mu = round(np.mean(y),3)
@@ -81,6 +93,6 @@ carpetas = ["Adhesivos Ópticos",
 ]
 
 for carpeta in carpetas:
-    archivos_yml = os.listdir(f"Taller_1/{carpeta}/")
+    archivos_yml = os.listdir(f"{carpeta}/")
     for archivo in archivos_yml:
-         graficar(f'Taller_1\{carpeta}\{archivo}')
+         graficar(f'{carpeta}\{archivo}')
