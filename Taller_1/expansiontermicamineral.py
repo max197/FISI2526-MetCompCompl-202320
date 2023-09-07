@@ -1,6 +1,7 @@
 from mineral import Mineral
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 class ExpansionTermicaMineral(Mineral):
     def __init__(self, csv, nombre, dureza, rompimiento,color,composicion,lustre,gravedad,sistema):
@@ -18,10 +19,7 @@ class ExpansionTermicaMineral(Mineral):
         #Calcular derivada central
         for i in range(1,len(V)-1):
           derivada.append((V[i+1]-V[i-1])/(T[i+1]-T[i-1]))
-
-        #TODO: ERROR GLOBAL
-        
-        #TODO: Rectificar si asi es el calculo de la derivada
+          
         alfa = (1/V[1:-1])*derivada
         
         fig, axs = plt.subplots(1,2,figsize =(20,8))
@@ -40,9 +38,15 @@ class ExpansionTermicaMineral(Mineral):
 
         plt.savefig(f"{self.nombre}_exptermica_volume.jpg")
         
-        #TODO Rectificar el return
+        #Retornamos el promedio del alfa y el error global
+        error_global = np.std(alfa)/np.sqrt(len(alfa))
+        alfa_promedio = np.mean(alfa)
 
-        return alfa,fig
+        
+        print(f"El error global de {self.nombre} es : {error_global}")
+        print(f"El alfa promedio {self.nombre} es : {alfa_promedio}")
+        
+        return alfa_promedio,error_global
         
 
 
